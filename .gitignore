@@ -1,0 +1,17 @@
+# LaTeX Temporary/Build Files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+*.run.xml
+*.bcf
+
+# PDF output (optional, but standard to ignore since it is generated)
+*.pdf
