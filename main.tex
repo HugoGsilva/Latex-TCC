@@ -7,6 +7,8 @@
 
 \ifPDFTeX
   % Fallback for PDFLaTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
   \usepackage[brazilian, english]{babel}
   \usepackage{mathptmx} % Times font
   \usepackage{helvet}   % Helvetica
@@ -81,7 +83,7 @@
 % --- TÍTULO E AUTORES ---
 \begin{center}
     \vspace*{12pt}
-    {\fontsize{16pt}{19pt}\bfseries HelpMechanic: Sistema de Intermediação para Socorro Mecânico e Borracharia no Contexto Urbano e Logístico de Paranaguá-PR \par}
+    {\fontsize{16pt}{19pt}\bfseries HelpMechanic: Plataforma Móvel para Intermediação de Socorro Mecânico e Borracharia no Contexto Urbano e Logístico de Paranaguá-PR \par}
     
     \vspace{12pt}
     {\fontsize{12pt}{14pt}\bfseries Hugo Guimarães da Silva$^1$, Wagner Rodrigo Weinert$^2$ \par}
@@ -125,46 +127,47 @@ O problema central reside na vulnerabilidade desse fluxo. Incidentes mecânicos 
 
 Atualmente, a busca por socorro mecânico na região tende a ocorrer de maneira fragmentada, por meio de buscas físicas, contatos telefônicos, indicações informais ou consultas genéricas, sem garantia de especialidade técnica, validação prévia ou disponibilidade em tempo real. Essa lacuna tecnológica pode resultar em períodos prolongados de imobilização veicular, aumentando riscos operacionais e prejuízos financeiros para transportadoras e condutores autônomos.
 
-O projeto HelpMechanic surge como uma resposta tecnológica a essa carência. Propõe-se uma camada de software de intermediação que digitaliza a jornada de socorro, desde a triagem preliminar assistida por IA até o pareamento geográfico preciso entre a necessidade do condutor (leve ou pesado) e a especialidade do prestador. Ao centralizar essa demanda em uma arquitetura moderna e segura, o sistema busca transformar um mercado hoje informal em uma rede eficiente de assistência em tempo real.
+O projeto HelpMechanic surge como uma resposta tecnológica a essa carência. Propõe-se uma camada de software de intermediação que digitaliza a jornada de socorro, desde a triagem preliminar assistida por IA até o pareamento geográfico preciso entre a necessidade do condutor (leve ou pesado) e a especialidade do prestador. Ao centralizar essa demanda em uma arquitetura moderna e segura, o sistema busca contribuir para a organização de um mercado atualmente fragmentado, oferecendo uma rede digital de intermediação de assistência em tempo real.
 
 \subsection{Objetivo Geral}
-O projeto visa reduzir o tempo de imobilização dos veículos e organizar o mercado de serviços local por meio de uma plataforma móvel com foco em desempenho e segurança.
+O objetivo geral deste trabalho é propor uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR, visando apoiar a redução do tempo de imobilização veicular e contribuir para a organização dos atendimentos emergenciais locais.
 
 \subsection{Objetivos Específicos}
 Esses objetivos específicos detalham as etapas necessárias para desenvolver e estruturar o funcionamento do software de ajuda mecânica.
 
 \begin{itemize}
-    \item Mapear gargalos: Identificar os pontos de maior incidência de falhas mecânicas no perímetro urbano e portuário de Paranaguá.
-    \item Algoritmo de Pareamento: Desenvolver uma lógica de conexão baseada em proximidade geográfica e especialidade técnica (mecânica leve vs. pesada).
-    \item Triagem Inteligente: Implementar componentes de IA para auxiliar o condutor na triagem preliminar do problema, otimizando o preparo do prestador.
-    \item Segurança e Validação: Estabelecer um fluxo de cadastro e validação de identidade para condutores e prestadores, mitigando riscos de fraude, informalidade e exposição indevida de dados.
+    \item[a)] identificar os principais gargalos relacionados à solicitação de socorro mecânico no contexto urbano e portuário de Paranaguá;
+    \item[b)] definir uma lógica de pareamento baseada em proximidade geográfica, disponibilidade e especialidade técnica do prestador;
+    \item[c)] especificar um fluxo de triagem preliminar assistida por inteligência artificial para auxiliar a descrição do problema pelo condutor;
+    \item[d)] estabelecer requisitos de segurança, validação de identidade e proteção de dados para condutores e prestadores;
+    \item[e)] modelar os principais requisitos funcionais, requisitos não funcionais e regras de negócio da plataforma.
 \end{itemize}
 
 \subsection{Justificativa}
 A necessidade de uma solução para intermediação de socorro mecânico em Paranaguá está relacionada ao intenso fluxo de veículos no contexto urbano e portuário. O Pátio Público de Triagem do Porto de Paranaguá recebeu 507.915 caminhões em 2025, crescimento de 29,5\% em relação ao ano anterior, além de registrar pico de 2.523 caminhões em 24 horas \cite{portosparana2026}. Esse cenário ocorre em um estado cuja frota superou 8,5 milhões de veículos em 2024 \cite{fetranspar2024}. Além disso, a Polícia Rodoviária Federal registrou aumento superior a 15\% nas mortes em acidentes com participação de caminhões no Paraná no primeiro semestre de 2025, evidenciando a relevância de soluções que contribuam para reduzir riscos e atrasos em situações de falha veicular \cite{prf2025}.
 
-As alternativas atualmente utilizadas para obtenção de socorro mecânico, como buscas genéricas, contatos telefônicos, indicações informais e cadastros empresariais, não garantem disponibilidade em tempo real, validação do prestador, compatibilidade com o tipo de veículo ou estimativa de proximidade. Embora atividades de manutenção e reparação mecânica possam ser identificadas formalmente por classificações como a CNAE 4520-0/01, esses registros não resolvem o problema operacional do atendimento emergencial, pois não oferecem um fluxo centralizado de solicitação, triagem e pareamento entre condutor e prestador \cite{concla_ibge_sd, brasil_sd}.
+As alternativas atualmente utilizadas para obtenção de socorro mecânico, como buscas genéricas, contatos telefônicos, indicações informais e cadastros empresariais, não garantem disponibilidade em tempo real, validação do prestador, compatibilidade com o tipo de veículo ou estimativa de proximidade. Embora atividades de manutenção e reparação mecânica possam ser identificadas formalmente por classificações como a CNAE 4520-0/01, esses registros não resolvem o problema operacional do atendimento emergencial, pois não oferecem um fluxo centralizado de solicitação, triagem e pareamento entre condutor e prestador \cite{concla_ibge_sd}.
 
-Nesse contexto, o HelpMechanic justifica-se por propor uma plataforma que centraliza a solicitação de socorro mecânico, realiza triagem preliminar assistida por inteligência artificial, aplica pareamento por localização e especialidade e prevê validação de condutores e prestadores. A proposta beneficia condutores, prestadores de serviço e o fluxo urbano-logístico local, ao mesmo tempo em que contribui academicamente para a área de Análise e Desenvolvimento de Sistemas por especificar regras de negócio, requisitos funcionais, requisitos não funcionais e critérios de segurança para uma aplicação móvel baseada em geolocalização. A escolha por tecnologias com foco em desempenho e segurança de tipos reforça a adequação técnica da solução para cenários que exigem comunicação rápida e confiável \cite{trpcteam_sd, honoteam_sd}.
+Nesse contexto, o HelpMechanic justifica-se por propor uma plataforma capaz de centralizar a solicitação de socorro mecânico, realizar triagem preliminar assistida por inteligência artificial, aplicar pareamento por localização e especialidade técnica e prever mecanismos de validação de condutores e prestadores. A proposta beneficia condutores, prestadores de serviço e o fluxo urbano-logístico local, além de contribuir academicamente para a área de Análise e Desenvolvimento de Sistemas ao especificar requisitos, regras de negócio e critérios de segurança para uma aplicação móvel baseada em geolocalização. A escolha por tecnologias com foco em desempenho e segurança de tipos reforça a adequação técnica da solução para cenários que exigem comunicação rápida e confiável \cite{trpcteam_sd, honoteam_sd}.
 
 \section{Fundamentação Teórica}
 
 \subsection{Mobilidade e Logística Portuária}
-A infraestrutura viária de Paranaguá apresenta-se vulnerável a gargalos logísticos decorrentes do intenso fluxo focado na exportação, especialmente de granéis sólidos \cite{marson2007}. A interrupção pontual do tráfego tem impactos sistêmicos. Registros recentes evidenciam que acidentes e imobilizações de caminhões no Paraná comprometem a segurança viária e reforçam a necessidade de intervenções ágeis \cite{prf2025}.
+A infraestrutura viária de Paranaguá apresenta-se vulnerável a gargalos logísticos decorrentes do intenso fluxo focado na exportação, especialmente de granéis sólidos \cite{caixeta2021}. A interrupção pontual do tráfego tem impactos sistêmicos. Registros recentes evidenciam que acidentes e imobilizações de caminhões no Paraná comprometem a segurança viária e reforçam a necessidade de intervenções ágeis \cite{prf2025}.
 
 \subsection{Arquiteturas de Alta Performance e \textit{Edge Computing}}
-O tempo de resposta é vital para sistemas de emergência viária. A adoção de \textit{Edge Computing} permite processamento descentralizado e proximidade com o usuário, mitigando problemas de latência \cite{fama2018}. A utilização conjunta do \textit{runtime} Bun — um conjunto de ferramentas JavaScript/TypeScript que inclui runtime, gerenciador de pacotes, executor de testes e empacotador — e do \textit{framework} Hono — projetado para aplicações web leves e compatíveis com ambientes de borda — consolida uma infraestrutura adequada para minimizar atrasos na comunicação entre condutores e socorristas em situações críticas \cite{bun_sd, honoteam_sd}.
+O tempo de resposta é vital para sistemas de emergência viária. A adoção de \textit{Edge Computing} (computação em borda) — modelo descentralizado que processa dados próximo à origem para mitigar latência e consumo de banda — é essencial para garantir respostas rápidas \cite{fama2018, schwab2016}. Nesse paradigma, a utilização conjunta de tecnologias de alta performance como o \textit{runtime} Bun (executor veloz de JavaScript/TypeScript) e o \textit{framework} Hono (otimizado para servidores de borda) consolida uma infraestrutura adequada para minimizar atrasos na comunicação de socorro \cite{bun_sd, honoteam_sd}.
 
 \subsection{Inteligência Artificial em Diagnósticos}
-Para otimizar o preparo do prestador de serviço antes do deslocamento, a Inteligência Artificial é tratada neste trabalho como recurso de apoio à triagem preliminar dos incidentes. Soluções de diagnóstico automotivo baseadas em sintomas informados pelo usuário indicam potencial para organizar descrições de problemas e sugerir hipóteses iniciais \cite{mecanicoia_sd}. Empregada por meio de \textit{chatbots} focados em emergências \cite{ezchatai2025}, a IA pode auxiliar no encaminhamento da demanda ao prestador mais adequado, sem substituir a avaliação técnica do profissional.
+Para otimizar o preparo do prestador de serviço antes do deslocamento, a Inteligência Artificial é tratada neste trabalho como recurso de apoio à triagem preliminar dos incidentes. Soluções de diagnóstico automotivo baseadas em sintomas informados pelo condutor indicam potencial para organizar descrições de problemas e sugerir hipóteses iniciais \cite{sasikala2024, silva2023}. Empregada por meio de \textit{chatbots} focados em emergências \cite{suarez2021}, a IA pode auxiliar no encaminhamento da demanda ao prestador mais adequado, sem substituir a avaliação técnica do profissional \cite{silva2023}.
 
 \subsection{Segurança de Tipos e Autenticação}
 A integridade dos dados trafegados entre o aplicativo móvel e o servidor é um fator crítico para a confiabilidade do sistema. O protocolo tRPC (\textit{TypeScript Remote Procedure Call}) permite o compartilhamento direto de tipos estáticos entre o backend e o frontend, reduzindo inconsistências entre cliente e servidor e apoiando a construção de APIs com segurança de tipos ponta a ponta \cite{trpcteam_sd}. Complementando essa arquitetura, o Drizzle ORM atua na camada de persistência como um mapeador objeto-relacional focado em TypeScript, permitindo a definição de esquemas e consultas tipadas no contexto do banco de dados \cite{drizzle_sd}. Para a segurança de acesso, adota-se o Better-Auth, um ecossistema de autenticação e autorização para TypeScript que oferece recursos extensíveis para gerenciamento de sessões e fluxos de autenticação \cite{betterauth_sd}.
 
 \section{Metodologia}
-Esta pesquisa classifica-se, quanto à sua natureza, como aplicada, uma vez que objetivou a solução de um problema concreto de mobilidade urbana e logística em Paranaguá por meio do desenvolvimento de um artefato tecnológico. Quanto à abordagem, o trabalho caracterizou-se como qualitativo no levantamento de requisitos e definição de regras de negócio, e quantitativo no processamento de dados geográficos para o pareamento de usuários. Em relação aos objetivos, a pesquisa foi exploratória e descritiva, fundamentada no levantamento bibliográfico e na modelagem técnica de um sistema de intermediação de serviços.
+Esta pesquisa classifica-se como aplicada, pois busca propor uma solução tecnológica para um problema concreto relacionado à mobilidade urbana e à logística em Paranaguá-PR. Quanto à abordagem, caracteriza-se como qualitativa na etapa de levantamento e análise de requisitos, e quantitativa na definição dos critérios de localização e proximidade utilizados no pareamento entre condutores e prestadores. Em relação aos objetivos, trata-se de uma pesquisa exploratória e descritiva, fundamentada em revisão bibliográfica, análise do contexto local e modelagem de um sistema de intermediação de serviços.
 
-Os procedimentos adotados basearam-se no ciclo de vida de desenvolvimento incremental e prototipação. Inicialmente, realizou-se a revisão de literatura sobre sistemas distribuídos e computação em borda. Em seguida, procedeu-se ao levantamento de requisitos funcionais com foco nas necessidades de condutores de veículos leves e pesados no contexto portuário. O desenvolvimento técnico priorizou a segurança de tipos (type safety) e a performance de resposta, com previsão de testes de integração para validar o fluxo de comunicação entre o cliente móvel e o servidor.
+Os procedimentos adotados basearam-se no ciclo de vida de desenvolvimento incremental e prototipação. Inicialmente, realizou-se a revisão de literatura sobre sistemas distribuídos e computação em borda. O levantamento de requisitos foi realizado a partir da análise do contexto urbano e logístico de Paranaguá, da revisão bibliográfica sobre sistemas móveis, geolocalização, segurança de dados e aplicações de intermediação de serviços, bem como da identificação dos principais atores envolvidos no processo: condutores, prestadores de serviço e administradores da plataforma. A partir dessas informações, foram definidos os requisitos funcionais, não funcionais e as regras de negócio necessárias para estruturar o protótipo conceitual do sistema. O desenvolvimento técnico priorizou a segurança de tipos (type safety) e a performance de resposta, com previsão de testes de integração para validar o fluxo de comunicação entre o cliente móvel e o servidor.
 
 \subsection{Materiais}
 Para a viabilização do sistema, selecionou-se um conjunto de tecnologias modernas focadas em alta performance e segurança de dados. Na camada de apresentação móvel, o TanStack Router gerencia a navegação com tipagem estática ponta a ponta, impedindo erros de rota durante o fluxo do usuário. Para a estilização, o NativeWind viabiliza o uso das classes utilitárias do Tailwind CSS no contexto nativo, permitindo a construção de interfaces consistentes com alto desempenho de renderização. A Tabela 1 detalha os recursos utilizados e as respectivas justificativas para a arquitetura do HelpMechanic.
@@ -187,7 +190,7 @@ Autenticação & Better-Auth & Framework de autenticação e autorização para 
 \end{table}
 
 \subsection{Métodos}
-A lógica central de conexão do HelpMechanic apoia-se em um modelo de gestão algorítmica para a alocação de recursos. O Algoritmo de Pareamento processa as coordenadas GPS do condutor e as cruza com a área de cobertura, disponibilidade e especialidade dos prestadores. A regra de decisão considera, em ordem, o tipo de veículo, a categoria do atendimento, o status ativo do prestador, o raio de atuação e a menor distância em relação ao chamado. Na implementação, a ordenação dos prestadores poderá considerar consultas espaciais no PostgreSQL com extensão PostGIS, permitindo filtrar profissionais dentro do raio de atuação e ordenar os resultados pela proximidade da posição do condutor \cite{postgis_sd}. A eficiência em serviços de emergência baseados na localização fundamenta-se fortemente no uso de algoritmos de \textit{matching} geográfico em tempo real, que reduzem o tempo ocioso e otimizam a distância percorrida \cite{tozi2022, biggeo_sd}.
+A lógica central de conexão do HelpMechanic apoia-se em um modelo de gestão algorítmica para a alocação de recursos. O Algoritmo de Pareamento processa as coordenadas GPS do condutor e as cruza com a área de cobertura, disponibilidade e especialidade dos prestadores. A regra de decisão considera, em ordem, o tipo de veículo, a categoria do atendimento, o status ativo do prestador, o raio de atuação e a menor distância em relação ao chamado. Na implementação, a ordenação dos prestadores poderá considerar consultas espaciais no PostgreSQL com extensão PostGIS, permitindo filtrar profissionais dentro do raio de atuação e ordenar os resultados pela proximidade da posição do condutor \cite{postgis_sd}. A eficiência em serviços de emergência baseados na localização fundamenta-se fortemente no uso de algoritmos de \textit{matching} geográfico em tempo real, que reduzem o tempo ocioso e otimizam a distância percorrida \cite{tozi2022, lee2020}.
 
 \section{Resultados e Discussão}
 Nesta etapa, os resultados concentram-se na especificação do sistema HelpMechanic. Foram definidos o conjunto tecnológico, as regras de negócio, os requisitos funcionais e os requisitos não funcionais necessários para estruturar a plataforma de intermediação de socorro mecânico. Esses artefatos permitem compreender os atores envolvidos, as responsabilidades do sistema e os critérios mínimos para disponibilizar uma solução voltada à mobilidade urbana e ao contexto logístico de Paranaguá. A análise também evidencia limitações do estágio atual do projeto, especialmente a necessidade de validação prática do algoritmo de pareamento, avaliação da triagem assistida por IA com usuários reais e medição de desempenho em cenários de baixa conectividade. Assim, os resultados apresentados devem ser compreendidos como uma etapa de especificação e prototipação, não como validação conclusiva em ambiente operacional.
@@ -205,7 +208,7 @@ Nesta etapa, os resultados concentram-se na especificação do sistema HelpMecha
 \hline
 \textbf{ID} & \textbf{Nome da Regra} & \textbf{Descrição} & \textbf{Atores} \\ \hline
 \endhead
-RN001 & Condutor (Cliente) & O condutor deve obrigatoriamente cadastrar seu perfil e seus veículos, leves ou pesados, para utilizar o fluxo de solicitação de socorro. & Condutor \\ \hline
+RN001 & Condutor & O condutor deve obrigatoriamente cadastrar seu perfil e seus veículos, leves ou pesados, para utilizar o fluxo de solicitação de socorro. & Condutor \\ \hline
 RN002 & Prestador & O mecânico/borracheiro deve cadastrar suas especialidades, raio de atuação geográfica e horários de disponibilidade. & Prestador \\ \hline
 RN003 & Separação Categoria & O sistema deve distinguir entre veículos leves e pesados, visando que o socorro seja compatível com a necessidade. & Sistema \\ \hline
 RN004 & Validação Credenciais & Prestadores só são ativados após verificação documental (OCR ou manual) para mitigar riscos de informalidade e elevar o nível de segurança. & Administrador / Sistema \\ \hline
@@ -231,7 +234,7 @@ RN011 & Bloqueio por Inconsistência Cadastral & Condutores com documentos repro
 \hline
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} & \textbf{RN Assoc.} \\ \hline
 \endhead
-RF001 & Cadastrar cliente & O sistema deve permitir o cadastro de clientes com nome, e-mail, CPF e data de nascimento. & RN001 \\ \hline
+RF001 & Cadastrar condutor & O sistema deve permitir o cadastro de condutores com nome, e-mail, CPF e data de nascimento. & RN001 \\ \hline
 RF002 & Solicitação Socorro & O condutor deve emitir um pedido enviando automaticamente sua coordenada GPS via interface móvel, desde que sua identidade esteja validada. & RN001, RN006, RN008, RN011 \\ \hline
 RF003 & Triagem via IA & O sistema deve processar a descrição do problema (texto/voz) e sugerir hipóteses de triagem preliminar usando modelos de linguagem, sem substituir a avaliação técnica do prestador. & - \\ \hline
 RF004 & Pareamento Geográfico & Algoritmo que cruza a necessidade do condutor (leve/pesado) com a especialidade, disponibilidade, raio de atuação e proximidade do prestador. & RN003, RN005, RN006 \\ \hline
@@ -275,6 +278,12 @@ RNF010 & Controle de Acesso Administrativo & Apenas usuários administrativos au
 RNF011 & Retenção e Exclusão & Imagens de documentos e selfies devem ser excluídas ou anonimizadas após a finalidade de validação ser cumprida, salvo necessidade legal ou de auditoria. \\ \hline
 \end{longtable}
 }
+
+\subsection{Discussão dos Requisitos}
+A definição dos requisitos evidencia que o HelpMechanic não se limita a listar prestadores de serviço, mas propõe um fluxo controlado de atendimento emergencial. A exigência de cadastro, validação de identidade e controle de disponibilidade busca reduzir riscos associados à informalidade e elevar a segurança dos usuários, aspecto crítico em serviços emergenciais que envolvem o deslocamento de profissionais a locais desconhecidos ou rodovias. O pareamento por proximidade e especialidade técnica atende diretamente à necessidade de diminuir o tempo de resposta, conectando de forma precisa a demanda do condutor com a capacidade técnica do prestador.
+
+Além disso, a triagem preliminar assistida por inteligência artificial busca otimizar a descrição de incidentes por meio do processamento de linguagem natural (texto e voz), auxiliando na identificação do problema pelo condutor e na preparação prévia do prestador. No entanto, o uso de IA para triagem envolve riscos relacionados à imprecisão de diagnósticos automatizados em virtude de ruídos sonoros, gírias locais ou descrições incompletas, razão pela qual o sistema a trata estritamente como ferramenta de apoio à decisão, e não como diagnóstico técnico conclusivo. Por fim, a eficácia geral dos mecanismos propostos, incluindo o comportamento do cache local em zonas de sombra e o tempo real de pareamento, depende de testes práticos e validação em ambiente real, especialmente no complexo urbano e portuário de Paranaguá, onde o fluxo constante de veículos pesados impõe desafios de conectividade e mobilidade.
+
 \subsection{Diagramas de Caso de Uso}
 \begin{figure}[H]
     \centering
@@ -293,10 +302,12 @@ em desenvolvimento
 em desenvolvimento
 
 \section{Conclusões}
-A síntese deste trabalho indica que a digitalização da jornada de socorro mecânico em Paranaguá é uma proposta viável e relevante diante do contexto urbano e logístico local. O HelpMechanic apresenta uma especificação inicial capaz de integrar geolocalização, triagem assistida por IA, cadastro de prestadores e pareamento por proximidade e especialidade. Entretanto, a efetiva redução do tempo de imobilização e a organização do mercado informal dependem de implementação completa, testes com usuários e validação em ambiente real.
+Este trabalho apresentou a especificação inicial do HelpMechanic, uma plataforma móvel voltada à intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta demonstrou-se relevante diante do contexto urbano e logístico local, marcado pela circulação intensa de veículos leves e pesados e pela necessidade de respostas rápidas em situações de falha veicular. Como contribuição, foram definidos requisitos funcionais, requisitos não funcionais, regras de negócio e elementos iniciais de arquitetura, contemplando geolocalização, triagem assistida por IA, validação de identidade e pareamento por proximidade e especialidade técnica.
+
+Apesar disso, o trabalho ainda se encontra em estágio de especificação e prototipação, não permitindo afirmar de forma conclusiva a redução do tempo de imobilização veicular. Dessa forma, a validação do sistema em ambiente real, com usuários e prestadores, constitui etapa essencial para verificar sua efetividade, usabilidade e desempenho em cenários de baixa conectividade.
 
 \subsection{Trabalhos Futuros}
-Como trabalhos futuros, propõe-se a implementação completa do protótipo funcional, a validação do algoritmo de pareamento com dados reais, a realização de testes de usabilidade com condutores e prestadores, a integração com serviços externos de validação de identidade e a avaliação do desempenho da aplicação em cenários de baixa conectividade. Também se recomenda aprofundar os mecanismos de privacidade, auditoria e retenção de dados, considerando os requisitos da LGPD e a segurança dos participantes da plataforma.
+Como trabalhos futuros, propõe-se a implementação completa do protótipo funcional, a validação do algoritmo de pareamento com dados reais, a realização de testes de usabilidade com condutores e prestadores, a integração com serviços externos de validação de identidade e a avaliação do desempenho da aplicação em cenários de baixa conectividade. Também se recomenda aprofundar os mecanismos de privacidade, auditoria e retenção de dados, considerando os requisitos da LGPD \cite{brasil_lgpd2018} e a segurança dos participantes da plataforma.
 
 \bibliographystyle{sbc}
 \bibliography{references}
