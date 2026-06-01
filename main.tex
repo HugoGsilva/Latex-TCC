@@ -260,14 +260,14 @@ RN013 & Triagem Assistida por IA & A triagem realizada por inteligência artific
 \hline
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} & \textbf{RN Assoc.} \\ \hline
 \endhead
-RF001 & Cadastrar condutor & O sistema deve permitir o cadastro de condutores com nome, e-mail, CPF e data de nascimento. & RN001 \\ \hline
+RF001 & Cadastrar Perfil e Veículo do Condutor & O sistema deve permitir o cadastro do condutor, incluindo nome, e-mail, CPF, data de nascimento e informações dos veículos vinculados, como tipo, placa, modelo e categoria leve ou pesada. & RN001 \\ \hline
 RF002 & Solicitar Socorro & O condutor deve emitir um pedido enviando automaticamente sua coordenada GPS via interface móvel, desde que sua identidade esteja validada. & RN001, RN006, RN008, RN011 \\ \hline
 RF003 & Realizar Triagem via IA & O sistema deve processar a descrição do problema (texto/voz) e sugerir hipóteses de triagem preliminar usando modelos de linguagem, sem substituir a avaliação técnica do prestador. & RN013 \\ \hline
 RF004 & Parear Prestador por Localização & Algoritmo que cruza a necessidade do condutor (leve/pesado) com a especialidade, disponibilidade, raio de atuação e proximidade do prestador. & RN003, RN005, RN006 \\ \hline
 RF005 & Gerenciar Disponibilidade & O mecânico deve poder alterar seu status para ``Ativo'' ou ``Inativo'' em tempo real. & RN005 \\ \hline
-RF006 & Validar Credenciais do Prestador & O registro de mecânicos e borracheiros deve passar por validação documental ou manual, buscando elevar a segurança da plataforma. & RN004 \\ \hline
+RF006 & Gerenciar Credenciais do Prestador & O sistema deve permitir o envio de credenciais pelo prestador e a validação documental ou manual pelo administrador. & RN004 \\ \hline
 RF007 & Enviar Mensagens e Mídias & Canal de comunicação interna para troca de mensagens, fotos do incidente ou detalhes da localização. & RN009, RN012 \\ \hline
-RF008 & Efetuar Pagamento Integrado & Processamento de pagamento via PIX ou cartão, calculando e retendo a taxa de uso definida nas regras de negócio. & RN007 \\ \hline
+RF008 & Efetuar Pagamento Integrado & O sistema deve permitir pagamento via PIX ou cartão por meio de provedor externo, calculando e retendo a taxa de uso definida nas regras de negócio, sem armazenar diretamente dados sensíveis de cartão. & RN007 \\ \hline
 RF009 & Validar Identidade do Condutor & O sistema deve permitir que o condutor envie dados e documentos para validação de identidade antes de solicitar socorro. & RN008, RN012 \\ \hline
 RF010 & Enviar Documento e Selfie & O condutor deve poder enviar imagem de documento oficial ou CNH e selfie para comprovação de identidade. & RN008, RN012 \\ \hline
 RF011 & Consultar Serviço Externo de Validação & O sistema deve permitir integração com serviço externo para validação cadastral, documental ou biométrica do condutor. & RN008 \\ \hline
