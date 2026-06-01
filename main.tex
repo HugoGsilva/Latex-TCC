@@ -85,13 +85,12 @@
     \vspace*{12pt}
     {\fontsize{16pt}{19pt}\bfseries HelpMechanic: Plataforma Móvel para Intermediação de Socorro Mecânico e Borracharia no Contexto Urbano e Logístico de Paranaguá-PR \par}
     
-    \vspace{12pt}
+   \vspace{12pt}
     {\fontsize{12pt}{14pt}\bfseries Hugo Guimarães da Silva$^1$, Wagner Rodrigo Weinert$^2$ \par}
-    
+
     \vspace{12pt}
     {\fontsize{12pt}{14pt} 
-    $^1$Análise e Desenvolvimento de Sistemas -- Instituto Federal do Paraná (IFPR) -- Paranaguá -- PR -- Brasil \\
-    $^2$Análise e Desenvolvimento de Sistemas -- Instituto Federal do Paraná (IFPR) -- Paranaguá -- PR -- Brasil \par}
+    $^1$Análise e Desenvolvimento de Sistemas -- Instituto Federal do Paraná (IFPR) -- Paranaguá -- PR -- Brasil \par}
     
     \vspace{6pt}
     {\fontsize{10pt}{12pt}\ttfamily hugoartess@gmail.com \par}
@@ -125,15 +124,15 @@ A cidade de Paranaguá abriga um dos principais complexos portuários do Brasil,
 
 O problema central abordado neste trabalho está relacionado à vulnerabilidade operacional desse fluxo quando há falhas mecânicas, problemas em pneus ou necessidade de apoio emergencial. Incidentes pontuais em corredores urbanos e rodoviários podem gerar retenções em cadeia, prejudicando tanto a logística portuária quanto o deslocamento dos moradores. Assim, a eficiência no acionamento de prestadores de socorro mecânico torna-se relevante para reduzir incertezas no atendimento e apoiar a continuidade do tráfego.
 
-A partir do levantamento de requisitos deste trabalho, considera-se como lacuna operacional a ausência de um fluxo digital integrado que reuni-se, em uma única plataforma, disponibilidade em tempo real, compatibilidade técnica entre prestador e veículo, validação de identidade, estimativa de proximidade e canal de comunicação seguro. Atualmente, a solicitação de socorro tende a depender de contatos telefônicos, indicações informais, buscas genéricas ou cadastros empresariais, mecanismos que podem não oferecer informações suficientes para decisão rápida em situações emergenciais.
+A partir do levantamento de requisitos deste trabalho, considera-se como lacuna operacional a ausência de um fluxo digital integrado que reúna, em uma única plataforma, disponibilidade em tempo real, compatibilidade técnica entre prestador e veículo, validação de identidade, estimativa de proximidade e canal de comunicação seguro. Atualmente, a solicitação de socorro tende a depender de contatos telefônicos, indicações informais, buscas genéricas ou cadastros empresariais, mecanismos que podem não oferecer informações suficientes para decisão rápida em situações emergenciais.
 
 O projeto HelpMechanic surge como uma proposta tecnológica para essa lacuna. Trata-se de uma camada de software de intermediação que digitaliza a jornada de socorro, desde a triagem preliminar assistida por inteligência artificial até o pareamento geográfico entre a necessidade do condutor, o tipo de veículo e a especialidade do prestador. Ao centralizar esse fluxo em uma arquitetura segura e orientada a dados, o sistema busca contribuir para a organização de um mercado fragmentado, sem substituir a avaliação técnica do profissional responsável pelo atendimento.
 
 \subsection{Objetivo Geral}
-O objetivo geral deste trabalho é propor uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR, visando apoiar a redução do tempo de imobilização veicular e contribuir para a organização dos atendimentos emergenciais locais.
+O objetivo geral deste trabalho é propor uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR, visando apoiar a organização dos atendimentos emergenciais e contribuir, potencialmente, para a redução do tempo de imobilização veicular.
 
 \subsection{Objetivos Específicos}
-Esses objetivos específicos detalham as etapas necessárias para desenvolver e estruturar o funcionamento do software de ajuda mecânica.
+Esses objetivos específicos detalham as etapas necessárias para desenvolver e estruturar o funcionamento da plataforma de intermediação de socorro mecânico.
 
 \begin{itemize}
     \item[a)] identificar os principais gargalos relacionados à solicitação de socorro mecânico no contexto urbano e portuário de Paranaguá;
@@ -148,7 +147,7 @@ A necessidade de uma solução para intermediação de socorro mecânico em Para
 
 A relevância do HelpMechanic decorre da combinação entre alto fluxo veicular, dependência da malha rodoviária para acesso ao complexo portuário e ausência de um fluxo digital integrado para solicitação de socorro mecânico. Embora serviços de manutenção mecânica e borracharia estejam formalmente classificados em atividades econômicas específicas, como a CNAE 4520-0/01, referente à manutenção e reparação mecânica de veículos automotores, e a CNAE 4520-0/06, referente a serviços de borracharia para veículos automotores, essa classificação não assegura, por si só, disponibilidade em tempo real, compatibilidade técnica entre prestador e veículo, validação de identidade ou estimativa de proximidade \cite{concla_ibge_mecanica, concla_ibge_borracharia}.
 
-Assim, a proposta não busca substituir oficinas, mecânicos e borracheiros existentes, mas organizar digitalmente a intermediação do atendimento emergencial. O sistema pretende reduzir incertezas no momento da solicitação, oferecer critérios objetivos de pareamento entre segurança, dados de localização e documentos. A contribuição acadêmica está na especificação de requisitos, regras de negócio, critérios de privacidade e arquitetura inicial para uma solução móvel baseada em geolocalização e apoio à decisão.
+Assim, a proposta não busca substituir oficinas, mecânicos e borracheiros existentes, mas organizar digitalmente a intermediação do atendimento emergencial. O sistema pretende reduzir incertezas no momento da solicitação e oferecer critérios objetivos de pareamento entre condutores e prestadores, considerando localização, disponibilidade, categoria do veículo, especialidade técnica e requisitos de segurança. A contribuição acadêmica está na especificação de requisitos, regras de negócio, critérios de privacidade e arquitetura inicial para uma solução móvel baseada em geolocalização e apoio à decisão.
 
 \section{Fundamentação Teórica}
 
@@ -173,7 +172,7 @@ A inteligência artificial é empregada neste trabalho como mecanismo de apoio �
 Essa triagem não deve ser interpretada como diagnóstico técnico definitivo. Descrições incompletas, ruídos em mensagens de voz, gírias locais, baixa qualidade de imagens e limitações do modelo podem gerar hipóteses imprecisas. Portanto, o sistema deve adotar uma abordagem de apoio à decisão, mantendo a avaliação final sob responsabilidade do profissional prestador do serviço.
 
 \subsection{Segurança de Tipos, Autenticação e Confiabilidade}
-A integridade dos dados trafegados entre o aplicativo móvel e o servidor é um fator crítico para a confiabilidade do sistema. O protocolo tRPC permite construir APIs com segurança de tipos ponta a ponta, reuni-se à redução de inconsistências entre cliente e servidor por meio da inferência de tipos em TypeScript \cite{trpcteam_sd}. Complementarmente, o Drizzle ORM atua na camada de persistência como um mapeador objeto-relacional orientado a TypeScript, apoiando a definição de esquemas e consultas tipadas \cite{drizzle_sd}.
+A integridade dos dados trafegados entre o aplicativo móvel e o servidor é um fator crítico para a confiabilidade do sistema. O protocolo tRPC permite construir APIs com segurança de tipos ponta a ponta, contribuindo para a redução de inconsistências entre cliente e servidor por meio da inferência de tipos em TypeScript \cite{trpcteam_sd}. Complementarmente, o Drizzle ORM atua na camada de persistência como um mapeador objeto-relacional orientado a TypeScript, apoiando a definição de esquemas e consultas tipadas \cite{drizzle_sd}.
 
 Na camada de acesso, a autenticação deve combinar controle de sessão, autorização, registro de eventos e mecanismos de mitigação de abuso. O Better Auth é utilizado como solução técnica para autenticação e autorização em aplicações TypeScript, mas a segurança do sistema depende também da configuração correta de permissões, proteção de rotas, armazenamento seguro e auditoria \cite{betterauth_sd}.
 
@@ -190,7 +189,7 @@ O trabalho adota prototipação incremental como procedimento técnico, iniciand
 A etapa atual limita-se à especificação e à prototipação conceitual. Desse modo, não são apresentados testes conclusivos de redução do tempo de imobilização, validação estatística de desempenho ou avaliação de usabilidade com usuários reais. Essas validações são indicadas como etapas futuras, necessárias para verificar a efetividade do sistema em condições reais de conectividade, fluxo viário e disponibilidade de prestadores.
 
 \subsection{Materiais}
-Para a viabilização do sistema, selecionou-se um conjunto de tecnologias modernas focadas em desempenho, segurança de tipos e organização do desenvolvimento. Na camada de apresentação, o TanStack Router gerencia rotas com tipagem estática e APIs orientadas a TypeScript \cite{tanstackrouter_sd}. Para a estilização móvel, o NativeWind permite utilizar o fluxo de trabalho do Tailwind CSS em aplicações React Native, contribuindo para consistência visual e produtividade na construção da interface \cite{nativewind_sd}. A Tabela 1 detalha os recursos utilizados e as respectivas justificativas para a arquitetura do HelpMechanic.
+Para a viabilização do sistema, selecionou-se um conjunto de tecnologias que busca apoiar desempenho, segurança de tipos e organização do desenvolvimento, embora a comprovação desses benefícios dependa de testes futuros de carga, latência e uso em ambiente real. Na camada de apresentação, o TanStack Router gerencia rotas com tipagem estática e APIs orientadas a TypeScript \cite{tanstackrouter_sd}. Para a estilização móvel, o NativeWind permite utilizar o fluxo de trabalho do Tailwind CSS em aplicações React Native, contribuindo para consistência visual e produtividade na construção da interface \cite{nativewind_sd}. A Tabela 1 detalha os recursos utilizados e as respectivas justificativas para a arquitetura do HelpMechanic.
 
 \begin{table}[H]
 \centering
@@ -244,6 +243,7 @@ RN009 & Restrição de Dados ao Prestador & O prestador deve visualizar apenas a
 RN010 & Revalidação de Identidade & O sistema poderá solicitar nova validação em caso de alteração de telefone, e-mail, documento, comportamento suspeito ou bloqueio administrativo. & Sistema / Condutor \\ \hline
 RN011 & Bloqueio por Inconsistência Cadastral & Condutores com documentos reprovados, identidade inconsistente ou suspeita de fraude não poderão abrir solicitações de socorro. & Sistema / Administrador \\ \hline
 RN012 & Minimização e Retenção de Dados & Dados pessoais, documentos e geolocalização devem ser coletados e retidos apenas pelo tempo necessário à finalidade do atendimento, auditoria ou obrigação legal. & Sistema / Administrador \\ \hline
+RN013 & Triagem Assistida por IA & A triagem realizada por inteligência artificial deve possuir caráter preliminar e informativo, não substituindo a avaliação técnica do prestador responsável pelo atendimento. & Sistema / Prestador \\ \hline
 \end{longtable}
 }
 
@@ -261,13 +261,13 @@ RN012 & Minimização e Retenção de Dados & Dados pessoais, documentos e geolo
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} & \textbf{RN Assoc.} \\ \hline
 \endhead
 RF001 & Cadastrar condutor & O sistema deve permitir o cadastro de condutores com nome, e-mail, CPF e data de nascimento. & RN001 \\ \hline
-RF002 & Solicitação Socorro & O condutor deve emitir um pedido enviando automaticamente sua coordenada GPS via interface móvel, desde que sua identidade esteja validada. & RN001, RN006, RN008, RN011 \\ \hline
-RF003 & Triagem via IA & O sistema deve processar a descrição do problema (texto/voz) e sugerir hipóteses de triagem preliminar usando modelos de linguagem, sem substituir a avaliação técnica do prestador. & - \\ \hline
-RF004 & Pareamento Geográfico & Algoritmo que cruza a necessidade do condutor (leve/pesado) com a especialidade, disponibilidade, raio de atuação e proximidade do prestador. & RN003, RN005, RN006 \\ \hline
-RF005 & Gestão Disponibilidade & O mecânico deve poder alterar seu status para ``Ativo'' ou ``Inativo'' em tempo real. & RN005 \\ \hline
+RF002 & Solicitar Socorro & O condutor deve emitir um pedido enviando automaticamente sua coordenada GPS via interface móvel, desde que sua identidade esteja validada. & RN001, RN006, RN008, RN011 \\ \hline
+RF003 & Realizar Triagem via IA & O sistema deve processar a descrição do problema (texto/voz) e sugerir hipóteses de triagem preliminar usando modelos de linguagem, sem substituir a avaliação técnica do prestador. & RN013 \\ \hline
+RF004 & Parear Prestador por Localização & Algoritmo que cruza a necessidade do condutor (leve/pesado) com a especialidade, disponibilidade, raio de atuação e proximidade do prestador. & RN003, RN005, RN006 \\ \hline
+RF005 & Gerenciar Disponibilidade & O mecânico deve poder alterar seu status para ``Ativo'' ou ``Inativo'' em tempo real. & RN005 \\ \hline
 RF006 & Validar Credenciais do Prestador & O registro de mecânicos e borracheiros deve passar por validação documental ou manual, buscando elevar a segurança da plataforma. & RN004 \\ \hline
-RF007 & Chat e mídia & Canal de comunicação interna para troca de mensagens, fotos do incidente ou detalhes da localização. & RN009, RN012 \\ \hline
-RF008 & Pagamento Integrado & Processamento de pagamento via PIX ou cartão, calculando e retendo a taxa de uso definida nas regras de negócio. & RN007 \\ \hline
+RF007 & Enviar Mensagens e Mídias & Canal de comunicação interna para troca de mensagens, fotos do incidente ou detalhes da localização. & RN009, RN012 \\ \hline
+RF008 & Efetuar Pagamento Integrado & Processamento de pagamento via PIX ou cartão, calculando e retendo a taxa de uso definida nas regras de negócio. & RN007 \\ \hline
 RF009 & Validar Identidade do Condutor & O sistema deve permitir que o condutor envie dados e documentos para validação de identidade antes de solicitar socorro. & RN008, RN012 \\ \hline
 RF010 & Enviar Documento e Selfie & O condutor deve poder enviar imagem de documento oficial ou CNH e selfie para comprovação de identidade. & RN008, RN012 \\ \hline
 RF011 & Consultar Serviço Externo de Validação & O sistema deve permitir integração com serviço externo para validação cadastral, documental ou biométrica do condutor. & RN008 \\ \hline
@@ -294,11 +294,11 @@ RF017 & Solicitar Exclusão ou Correção de Dados & O usuário deve poder solic
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} \\ \hline
 \endhead
 RNF001 & Segurança e Autenticação & Toda a camada de acesso deve utilizar autenticação, autorização, controle de sessão e proteção de rotas, com Better Auth como tecnologia selecionada para apoiar esse fluxo. \\ \hline
-RNF002 & Performance & O backend em Hono e Bun deve ser otimizado e testado para mitigar latência de processamento, priorizando rapidez no tempo de resposta das requisições de pareamento. \\ \hline
+RNF002 & Performance & A escolha de Hono e Bun busca apoiar respostas rápidas nas requisições de pareamento, embora a comprovação de desempenho dependa de testes futuros de carga, latência e uso em ambiente real. \\ \hline
 RNF003 & Consistência de Tipos & O uso de tRPC e Drizzle deve mitigar erros de serialização, desserialização e inconsistência de contratos entre banco, backend e frontend móvel por meio de tipagem estática compartilhada. \\ \hline
 RNF004 & Proteção de Dados (LGPD) & O sistema deve minimizar ou anonimizar dados de geolocalização após a conclusão do serviço, respeitando prazos necessários para auditoria, segurança, obrigações legais e suporte ao usuário. \\ \hline
 RNF005 & Persistência Espacial & O banco de dados deve oferecer suporte a consultas geográficas eficientes para cálculo de proximidade e filtragem de prestadores por raio de atuação. \\ \hline
-RNF006 & Resiliência em Rodovias & O aplicativo deve prever gerenciamento de cache local para auxiliar na manutenção da solicitação activa em zonas de sombra de sinal, especialmente em áreas rodoviárias. \\ \hline
+RNF006 & Resiliência em Rodovias & O aplicativo deve prever gerenciamento de cache local para auxiliar na manutenção da solicitação ativa em zonas de sombra de sinal, especialmente em áreas rodoviárias. \\ \hline
 RNF007 & Proteção de Dados Sensíveis & Documentos, selfies e eventuais dados biométricos devem ser protegidos por mecanismos como criptografia, controle de acesso, armazenamento seguro e auditoria. \\ \hline
 RNF008 & Minimização de Dados & O sistema deve armazenar apenas os dados necessários para comprovar a validação de identidade e executar o atendimento, evitando manter imagens e documentos por tempo indeterminado. \\ \hline
 RNF009 & Auditoria de Validação & Toda aprovação, reprovação ou alteração de status de identidade deve gerar registro de auditoria com data, responsável e justificativa. \\ \hline
