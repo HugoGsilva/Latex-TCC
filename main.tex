@@ -244,6 +244,9 @@ RN010 & Revalidação de Identidade & O sistema poderá solicitar nova validaç�
 RN011 & Bloqueio por Inconsistência Cadastral & Condutores com documentos reprovados, identidade inconsistente ou suspeita de fraude não poderão abrir solicitações de socorro. & Sistema / Administrador \\ \hline
 RN012 & Minimização e Retenção de Dados & Dados pessoais, documentos e geolocalização devem ser coletados e retidos apenas pelo tempo necessário à finalidade do atendimento, auditoria ou obrigação legal. & Sistema / Administrador \\ \hline
 RN013 & Triagem Assistida por IA & A triagem realizada por inteligência artificial deve possuir caráter preliminar e informativo, não substituindo a avaliação técnica do prestador responsável pelo atendimento. & Sistema / Prestador \\ \hline
+RN014 & Avaliação do Prestador & A avaliação do prestador somente poderá ser realizada após a conclusão do serviço, uma única vez por atendimento, ficando vinculada à solicitação, ao condutor e ao prestador avaliado. & Condutor / Prestador / Sistema \\ \hline
+RN015 & Cancelamento de Solicitação & O condutor poderá cancelar uma solicitação de socorro enquanto ela não estiver concluída. Caso o cancelamento ocorra após o aceite do prestador, o sistema deverá registrar o motivo e manter o histórico da ocorrência para fins de auditoria. & Condutor / Prestador / Sistema \\ \hline
+RN016 & Controle de Acesso por Perfil & O acesso às funcionalidades do sistema deve ser condicionado à autenticação do usuário e ao perfil associado, distinguindo permissões de condutor, prestador e administrador. & Condutor / Prestador / Administrador / Sistema \\ \hline
 \end{longtable}
 }
 
@@ -268,8 +271,8 @@ RF005 & Gerenciar Disponibilidade & O mecânico deve poder alterar seu status pa
 RF006 & Gerenciar Credenciais do Prestador & O sistema deve permitir o envio de credenciais pelo prestador e a validação documental ou manual pelo administrador. & RN004 \\ \hline
 RF007 & Enviar Mensagens e Mídias & Canal de comunicação interna para troca de mensagens, fotos do incidente ou detalhes da localização. & RN009, RN012 \\ \hline
 RF008 & Efetuar Pagamento Integrado & O sistema deve permitir pagamento via PIX ou cartão por meio de provedor externo, calculando e retendo a taxa de uso definida nas regras de negócio, sem armazenar diretamente dados sensíveis de cartão. & RN007 \\ \hline
-RF009 & Validar Identidade do Condutor & O sistema deve permitir que o condutor envie dados e documentos para validação de identidade antes de solicitar socorro. & RN008, RN012 \\ \hline
-RF010 & Enviar Documento e Selfie & O condutor deve poder enviar imagem de documento oficial ou CNH e selfie para comprovação de identidade. & RN008, RN012 \\ \hline
+RF009 & Validar Identidade do Condutor & O sistema deve gerenciar o processo de validação de identidade do condutor, atribuindo status como pendente, aprovado, reprovado ou bloqueado, antes da liberação do fluxo de solicitação de socorro. & RN008, RN010, RN011, RN012 \\ \hline
+RF010 & Enviar Documento e Selfie & O condutor deve poder enviar imagem de documento oficial ou CNH e selfie para compor o processo de validação de identidade. & RN008, RN012 \\ \hline
 RF011 & Consultar Serviço Externo de Validação & O sistema deve permitir integração com serviço externo para validação cadastral, documental ou biométrica do condutor. & RN008 \\ \hline
 RF012 & Analisar Validações Pendentes & O administrador deve poder aprovar, reprovar ou solicitar correção dos dados enviados para validação de identidade do condutor. & RN008, RN011 \\ \hline
 RF013 & Bloquear Solicitação de Condutor Não Validado & O sistema deve impedir a abertura de chamados por condutores com status não validado, pendente, recusado ou bloqueado. & RN008, RN011 \\ \hline
@@ -277,6 +280,9 @@ RF014 & Exibir Status de Identidade Verificada & O sistema deve exibir ao presta
 RF015 & Cadastrar Especialidades e Área de Atuação & O prestador deve poder cadastrar suas especialidades, raio de atendimento, área de atuação e horários de disponibilidade. & RN002, RN005 \\ \hline
 RF016 & Aceitar ou Recusar Solicitação & O prestador deve poder visualizar solicitações compatíveis com sua especialidade e área de atuação, aceitando ou recusando o atendimento. & RN002, RN005, RN006 \\ \hline
 RF017 & Solicitar Exclusão ou Correção de Dados & O usuário deve poder solicitar correção, exclusão ou revisão de dados pessoais conforme as políticas de retenção e requisitos legais aplicáveis. & RN012 \\ \hline
+RF018 & Gerenciar Sessão de Acesso & O sistema deve permitir autenticação e encerramento de sessão para condutores, prestadores e administradores, mantendo o acesso às funcionalidades condicionado ao perfil e ao estado da conta. & RN016 \\ \hline
+RF019 & Avaliar Prestador & O condutor deve poder avaliar o prestador após a conclusão do serviço, informando nota e, opcionalmente, comentário sobre o atendimento realizado. & RN014 \\ \hline
+RF020 & Cancelar Solicitação de Socorro & O condutor deve poder cancelar uma solicitação de socorro enquanto ela não estiver concluída, com registro de motivo quando o atendimento já tiver sido aceito pelo prestador. & RN015 \\ \hline
 \end{longtable}
 }
 
@@ -293,11 +299,11 @@ RF017 & Solicitar Exclusão ou Correção de Dados & O usuário deve poder solic
 \hline
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} \\ \hline
 \endhead
-RNF001 & Segurança e Autenticação & Toda a camada de acesso deve utilizar autenticação, autorização, controle de sessão e proteção de rotas, com Better Auth como tecnologia selecionada para apoiar esse fluxo. \\ \hline
-RNF002 & Performance & A escolha de Hono e Bun busca apoiar respostas rápidas nas requisições de pareamento, embora a comprovação de desempenho dependa de testes futuros de carga, latência e uso em ambiente real. \\ \hline
-RNF003 & Consistência de Tipos & O uso de tRPC e Drizzle deve mitigar erros de serialização, desserialização e inconsistência de contratos entre banco, backend e frontend móvel por meio de tipagem estática compartilhada. \\ \hline
+RNF001 & Segurança e Autenticação & O sistema deve garantir autenticação de usuários, autorização por perfil, gerenciamento seguro de sessão, proteção de rotas e encerramento de sessão em caso de inatividade ou ação explícita do usuário. \\ \hline
+RNF002 & Desempenho & As funcionalidades críticas de abertura de chamado, triagem preliminar e pareamento de prestadores devem ser projetadas para apresentar resposta rápida, com meta de retorno em até 3 segundos em condições normais de rede e carga. \\ \hline
+RNF003 & Consistência e Integridade de Dados & As interfaces entre aplicativo, backend e banco de dados devem validar entradas e saídas, manter contratos de dados consistentes e prevenir estados inválidos, erros de serialização ou inconsistências entre as camadas do sistema. \\ \hline
 RNF004 & Proteção de Dados (LGPD) & O sistema deve minimizar ou anonimizar dados de geolocalização após a conclusão do serviço, respeitando prazos necessários para auditoria, segurança, obrigações legais e suporte ao usuário. \\ \hline
-RNF005 & Persistência Espacial & O banco de dados deve oferecer suporte a consultas geográficas eficientes para cálculo de proximidade e filtragem de prestadores por raio de atuação. \\ \hline
+RNF005 & Suporte a Dados Geoespaciais & A camada de persistência deve permitir armazenamento de coordenadas, indexação espacial e consultas por raio de atuação para cálculo de proximidade entre condutor e prestadores disponíveis. \\ \hline
 RNF006 & Resiliência em Rodovias & O aplicativo deve prever gerenciamento de cache local para auxiliar na manutenção da solicitação ativa em zonas de sombra de sinal, especialmente em áreas rodoviárias. \\ \hline
 RNF007 & Proteção de Dados Sensíveis & Documentos, selfies e eventuais dados biométricos devem ser protegidos por mecanismos como criptografia, controle de acesso, armazenamento seguro e auditoria. \\ \hline
 RNF008 & Minimização de Dados & O sistema deve armazenar apenas os dados necessários para comprovar a validação de identidade e executar o atendimento, evitando manter imagens e documentos por tempo indeterminado. \\ \hline
@@ -305,6 +311,8 @@ RNF009 & Auditoria de Validação & Toda aprovação, reprovação ou alteraçã
 RNF010 & Controle de Acesso Administrativo & Apenas usuários administrativos autorizados poderão visualizar documentos enviados para validação, com registro de acesso e separação de permissões. \\ \hline
 RNF011 & Retenção e Exclusão & Imagens de documentos e selfies devem ser excluídas ou anonimizadas após a finalidade de validação ser cumprida, salvo necessidade legal, antifraude ou de auditoria. \\ \hline
 RNF012 & Transparência ao Usuário & O aplicativo deve informar de forma clara a finalidade da coleta de documentos, localização e dados de contato, bem como as condições de retenção e exclusão. \\ \hline
+RNF013 & Usabilidade & O aplicativo deve apresentar fluxo de solicitação de socorro simples e objetivo, permitindo que o condutor inicie um chamado em poucas etapas após a autenticação, com linguagem clara, feedback visual de status e mensagens de erro compreensíveis. \\ \hline
+RNF014 & Disponibilidade & Em ambiente de produção, os serviços essenciais de autenticação, abertura de chamado, pareamento, comunicação e pagamento devem manter disponibilidade mínima de 90\% ao mês, excetuadas janelas de manutenção planejada. \\ \hline
 \end{longtable}
 }
 
