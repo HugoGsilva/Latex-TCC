@@ -93,7 +93,7 @@
     $^1$Análise e Desenvolvimento de Sistemas -- Instituto Federal do Paraná (IFPR) -- Paranaguá -- PR -- Brasil \par}
     
     \vspace{6pt}
-    {\fontsize{10pt}{12pt}\ttfamily hugoartess@gmail.com \par}
+    {\fontsize{10pt}{12pt}\ttfamily hugoartess@gmail.com$^1$ wagner.weinert@ifpr.edu.br$^2$ \par}
 \end{center}
 
 \vspace{12pt}
@@ -101,7 +101,7 @@
 % --- ABSTRACT ---
 \selectlanguage{english}
 \begin{sbcabstract}
-\noindent \textbf{Abstract.} \textit{In Paranaguá-PR, the interaction between port logistics and urban mobility creates operational challenges when vehicles are immobilized by mechanical failures or tire problems. This paper presents HelpMechanic, a mobile platform for intermediating mechanical assistance and tire repair services. The proposal combines real-time geolocation, artificial-intelligence-assisted preliminary triage and matching between drivers and providers according to proximity, availability and technical specialty. The methodology is applied, exploratory and descriptive, based on bibliographic review, document analysis, requirements modeling and conceptual prototyping. As a result, the work specifies business rules, functional and non-functional requirements, privacy criteria and initial architectural elements, without claiming conclusive validation in an operational environment.}
+\noindent \textbf{Abstract.} \textit{In Paranaguá-PR, the interaction between port logistics and urban mobility creates operational challenges when vehicles are immobilized by mechanical failures or tire problems. This paper presents HelpMechanic, a mobile platform for intermediating mechanical assistance and tire repair services. The proposal combines real-time geolocation, artificial-intelligence-assisted preliminary triage and matching between drivers and providers according to proximity, availability and technical specialty. The methodology is applied, exploratory and descriptive, based on bibliographic review, document analysis, requirements modeling and conceptual prototyping. As a result, the work specifies business rules, functional and non-functional requirements, privacy criteria and initial architectural elements.}
 
 \vspace{6pt}
 \noindent \textbf{Keywords:} mechanical assistance; geolocation; urban mobility; port logistics; mobile systems.
@@ -110,7 +110,7 @@
 % --- RESUMO ---
 \selectlanguage{portuguese}
 \begin{sbcabstract}
-\noindent \textbf{Resumo.} \textit{Este trabalho apresenta o HelpMechanic, uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta utiliza geolocalização em tempo real, triagem preliminar assistida por inteligência artificial e pareamento entre condutores e prestadores conforme proximidade, disponibilidade e especialidade técnica. A metodologia caracteriza-se como aplicada, exploratória e descritiva, baseada em revisão bibliográfica, análise documental, modelagem de requisitos e prototipação conceitual. Como resultado, são especificadas regras de negócio, requisitos funcionais, requisitos não funcionais, critérios de privacidade e elementos iniciais de arquitetura, sem afirmar validação conclusiva em ambiente operacional.}
+\noindent \textbf{Resumo.} \textit{Este trabalho apresenta o HelpMechanic, uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta utiliza geolocalização em tempo real, triagem preliminar assistida por inteligência artificial e pareamento entre condutores e prestadores conforme proximidade, disponibilidade e especialidade técnica. A metodologia caracteriza-se como aplicada, exploratória e descritiva, baseada em revisão bibliográfica, análise documental, modelagem de requisitos e prototipação conceitual. Como resultado, são especificadas regras de negócio, requisitos funcionais, requisitos não funcionais, critérios de privacidade e elementos iniciais de arquitetura.}
 
 \vspace{6pt}
 {\sloppy \noindent \textbf{Palavras-chave:} socorro mecânico; geolocalização; mobilidade urbana; logística portuária; sistemas móveis.\par}
@@ -139,7 +139,8 @@ Esses objetivos específicos detalham as etapas necessárias para desenvolver e 
     \item[b)] definir uma lógica de pareamento baseada em proximidade geográfica, disponibilidade e especialidade técnica do prestador;
     \item[c)] especificar um fluxo de triagem preliminar assistida por inteligência artificial para auxiliar a descrição do problema pelo condutor;
     \item[d)] estabelecer requisitos de segurança, validação de identidade, minimização de dados e proteção de informações pessoais;
-    \item[e)] modelar os principais requisitos funcionais, requisitos não funcionais, regras de negócio e artefatos conceituais da plataforma.
+    \item[e)] modelar os principais requisitos funcionais, requisitos não funcionais, regras de negócio e artefatos conceituais da plataforma;
+    \item[f)] desenvolver um protótipo funcional do aplicativo móvel e suas respectivas interfaces (condutor e prestador), integrando a lógica de pareamento geográfico, o fluxo de triagem por IA e os protocolos de segurança previamente definidos.
 \end{itemize}
 
 \subsection{Justificativa}
@@ -283,10 +284,13 @@ RF017 & Solicitar Exclusão ou Correção de Dados & O usuário deve poder solic
 RF018 & Gerenciar Sessão de Acesso & O sistema deve permitir autenticação e encerramento de sessão para condutores, prestadores e administradores, mantendo o acesso às funcionalidades condicionado ao perfil e ao estado da conta. & RN016 \\ \hline
 RF019 & Avaliar Prestador & O condutor deve poder avaliar o prestador após a conclusão do serviço, informando nota e, opcionalmente, comentário sobre o atendimento realizado. & RN014 \\ \hline
 RF020 & Cancelar Solicitação de Socorro & O condutor deve poder cancelar uma solicitação de socorro enquanto ela não estiver concluída, com registro de motivo quando o atendimento já tiver sido aceito pelo prestador. & RN015 \\ \hline
+RF021 & Consultar Serviço Externo de IA & O sistema deve permitir a integração com serviço externo de inteligência artificial para processar a descrição textual, por voz ou por imagem do problema relatado pelo condutor, retornando uma triagem preliminar e informativa ao sistema, sem substituir a avaliação técnica do prestador responsável pelo atendimento. & RN012, RN013 \\ \hline
 \end{longtable}
 }
 
 \subsection{Requisitos Não Funcionais}
+
+A definição dos requisitos não funcionais também considera atributos de qualidade de produto de software associados a desempenho, usabilidade, segurança, confiabilidade e manutenibilidade, conforme modelos de avaliação como a ISO/IEC 25010 \cite{iso25010_2023}.
 
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -313,13 +317,14 @@ RNF011 & Retenção e Exclusão & Imagens de documentos e selfies devem ser excl
 RNF012 & Transparência ao Usuário & O aplicativo deve informar de forma clara a finalidade da coleta de documentos, localização e dados de contato, bem como as condições de retenção e exclusão. \\ \hline
 RNF013 & Usabilidade & O aplicativo deve apresentar fluxo de solicitação de socorro simples e objetivo, permitindo que o condutor inicie um chamado em poucas etapas após a autenticação, com linguagem clara, feedback visual de status e mensagens de erro compreensíveis. \\ \hline
 RNF014 & Disponibilidade & Em ambiente de produção, os serviços essenciais de autenticação, abertura de chamado, pareamento, comunicação e pagamento devem manter disponibilidade mínima de 90\% ao mês, excetuadas janelas de manutenção planejada. \\ \hline
+RNF015 & Controle de Dados Enviados à IA & O sistema deve limitar o envio de dados ao serviço externo de IA às informações estritamente necessárias para a triagem preliminar, evitando o compartilhamento de CPF, documentos, selfies ou outros dados sensíveis não relacionados ao problema mecânico relatado. \\ \hline
 \end{longtable}
 }
 
 \subsection{Discussão dos Requisitos}
 A definição dos requisitos evidencia que o HelpMechanic não se limita a listar prestadores de serviço, mas propõe um fluxo controlado de atendimento emergencial. A exigência de cadastro, validação de identidade e controle de disponibilidade busca reduzir riscos associados à informalidade e elevar a segurança dos usuários, aspecto crítico em serviços emergenciais que envolvem o deslocamento de profissionais a locais desconhecidos ou rodovias. O pareamento por proximidade e especialidade técnica atende diretamente à necessidade de diminuir incertezas no acionamento, conectando de forma objetiva a demanda do condutor com a capacidade técnica do prestador.
 
-Além disso, a triagem preliminar assistida por inteligência artificial busca otimizar a descrição de incidentes por meio do processamento de linguagem natural, auxiliando na organização do problema relatado pelo condutor e na preparação prévia do prestador. No entanto, o uso de IA para triagem envolve riscos relacionados à imprecisão de diagnósticos automatizados em virtude de ruídos sonoros, gírias locais ou descrições incompletas, razão pela qual o sistema a trata estritamente como ferramenta de apoio à decisão, e não como diagnóstico técnico conclusivo.
+Além disso, a triagem preliminar assistida por inteligência artificial busca otimizar a descrição de incidentes por meio do processamento de linguagem natural, auxiliando na organização do problema relatado pelo condutor e na preparação prévia do prestador. No entanto, o uso de IA para triagem envolve riscos relacionados à imprecisão de diagnósticos automatizados em virtude de ruídos sonoros, gírias locais ou descrições incompletas, razão pela qual o sistema a trata estritamente como ferramenta de apoio à decisão, e não como diagnóstico técnico conclusivo. Quando a triagem for realizada por serviço externo de IA, o sistema deverá restringir os dados enviados ao mínimo necessário, preservando documentos, selfies, CPF e demais informações sensíveis que não sejam indispensáveis ao atendimento.
 
 Os requisitos de privacidade reforçam que a geolocalização e os documentos de identidade são necessários apenas para finalidades específicas de segurança, atendimento e auditoria. Por fim, a eficácia geral dos mecanismos propostos, incluindo o comportamento do cache local em zonas de sombra e o tempo real de pareamento, depende de testes práticos e validação em ambiente real, especialmente no complexo urbano e portuário de Paranaguá, onde o fluxo constante de veículos pesados impõe desafios de conectividade e mobilidade.
 
@@ -327,13 +332,15 @@ Os requisitos de privacidade reforçam que a geolocalização e os documentos de
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\linewidth]{Diagrama UML HelpMechanic.png}
+    \caption{Diagrama de casos de uso Representando as principais funcionalidades.}
 \end{figure}
 
 \subsection{Fluxograma}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\linewidth]{_Fluxograma TCC helpmechanic.png}
-    \label{fig:placeholder}
+    \caption{Fluxo de solicitação, triagem, pareamento e conclusão do atendimento no HelpMechanic.}
+    \label{fig:fluxograma-atendimento}
 \end{figure}
 
 \subsection{Modelo Relacional}
@@ -345,12 +352,12 @@ em desenvolvimento
 \section{Conclusões}
 Este trabalho apresentou a especificação inicial do HelpMechanic, uma plataforma móvel voltada à intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta demonstrou-se relevante diante do contexto urbano e logístico local, marcado pela circulação intensa de veículos leves e pesados e pela necessidade de respostas rápidas em situações de falha veicular. Como contribuição, foram definidos requisitos funcionais, requisitos não funcionais, regras de negócio, critérios de privacidade e elementos iniciais de arquitetura, contemplando geolocalização, triagem assistida por IA, validação de identidade e pareamento por proximidade e especialidade técnica.
 
-Apesar disso, o trabalho ainda se encontra em estágio de especificação e prototipação, não permitindo afirmar de forma conclusiva a redução do tempo de imobilização veicular. Dessa forma, a validação do sistema em ambiente real, com usuários e prestadores, constitui etapa essencial para verificar sua efetividade, usabilidade e desempenho em cenários de baixa conectividade.
+Apesar disso, o trabalho ainda se encontra em estágio de especificação e prototipação, não permitindo afirmar de forma conclusiva a redução do tempo de imobilização veicular. Assim, testes de usabilidade com usuários reais, validação do algoritmo de pareamento, avaliação da triagem assistida por IA, integração com serviços externos de validação e medições de desempenho em cenários de baixa conectividade ainda serão realizados em trabalhos futuros.
 
 \subsection{Trabalhos Futuros}
-Como trabalhos futuros, propõe-se a implementação completa do protótipo funcional, a validação do algoritmo de pareamento com dados reais, a realização de testes de usabilidade com condutores e prestadores, a integração com serviços externos de validação de identidade e a avaliação do desempenho da aplicação em cenários de baixa conectividade. Também se recomenda aprofundar os mecanismos de privacidade, auditoria e retenção de dados, considerando os requisitos da LGPD \cite{brasil_lgpd2018} e a segurança dos participantes da plataforma.
+Como trabalhos futuros, ainda serão realizados os seguintes encaminhamentos: implementação completa do protótipo funcional, validação do algoritmo de pareamento com dados reais, testes de usabilidade com condutores e prestadores, integração com serviços externos de validação de identidade, aprofundamento da integração com serviço externo de IA e avaliação do desempenho da aplicação em cenários de baixa conectividade. Também se recomenda aprofundar os mecanismos de privacidade, auditoria e retenção de dados, considerando os requisitos da LGPD \cite{brasil_lgpd2018} e a segurança dos participantes da plataforma.
 
 \bibliographystyle{sbc}
-\bibliography{references}
+\bibliography{references,references_adicionais}
 
 \end{document}
