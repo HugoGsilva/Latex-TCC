@@ -13,6 +13,10 @@
   \usepackage{mathptmx} % Times font
   \usepackage{helvet}   % Helvetica
   \usepackage{courier}  % Courier
+  \usepackage{svg}
+  \usepackage{subcaption}
+  \usepackage{placeins}
+
 \else
   % Modern engines (LuaLaTeX/XeLaTeX)
   \usepackage{fontspec}
@@ -101,7 +105,7 @@
 % --- ABSTRACT ---
 \selectlanguage{english}
 \begin{sbcabstract}
-\noindent \textbf{Abstract.} \textit{In Paranaguá-PR, the interaction between port logistics and urban mobility creates operational challenges when vehicles are immobilized by mechanical failures or tire problems. This paper presents HelpMechanic, a mobile platform for intermediating mechanical assistance and tire repair services. The proposal combines real-time geolocation, artificial-intelligence-assisted preliminary triage and matching between drivers and providers according to proximity, availability and technical specialty. The methodology is applied, exploratory and descriptive, based on bibliographic review, document analysis, requirements modeling and conceptual prototyping. As a result, the work specifies business rules, functional and non-functional requirements, privacy criteria and initial architectural elements.}
+\noindent \textbf{Abstract.} \textit{In Paranaguá-PR, the interaction between port logistics and urban mobility creates operational challenges when vehicles are immobilized by mechanical failures or tire problems. This paper presents HelpMechanic, a mobile platform for intermediating mechanical assistance and tire repair services. The proposal combines real-time geolocation, artificial-intelligence-assisted preliminary triage and matching between drivers and providers according to proximity, availability and technical specialty. The methodology is applied, exploratory and descriptive, based on bibliographic review, document analysis, requirements modeling and incremental prototyping. As a result, the work specifies business rules, functional and non-functional requirements, privacy criteria and initial architectural elements, in addition to a high-fidelity navigable prototype of the driver and provider interfaces.}
 
 \vspace{6pt}
 \noindent \textbf{Keywords:} mechanical assistance; geolocation; urban mobility; port logistics; mobile systems.
@@ -110,7 +114,7 @@
 % --- RESUMO ---
 \selectlanguage{portuguese}
 \begin{sbcabstract}
-\noindent \textbf{Resumo.} \textit{Este trabalho apresenta o HelpMechanic, uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta utiliza geolocalização em tempo real, triagem preliminar assistida por inteligência artificial e pareamento entre condutores e prestadores conforme proximidade, disponibilidade e especialidade técnica. A metodologia caracteriza-se como aplicada, exploratória e descritiva, baseada em revisão bibliográfica, análise documental, modelagem de requisitos e prototipação conceitual. Como resultado, são especificadas regras de negócio, requisitos funcionais, requisitos não funcionais, critérios de privacidade e elementos iniciais de arquitetura.}
+\noindent \textbf{Resumo.} \textit{Este trabalho apresenta o HelpMechanic, uma plataforma móvel para intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta utiliza geolocalização em tempo real, triagem preliminar assistida por inteligência artificial e pareamento entre condutores e prestadores conforme proximidade, disponibilidade e especialidade técnica. A metodologia caracteriza-se como aplicada, exploratória e descritiva, baseada em revisão bibliográfica, análise documental, modelagem de requisitos e prototipação incremental. Como resultado, são especificadas regras de negócio, requisitos funcionais, requisitos não funcionais, critérios de privacidade e elementos iniciais de arquitetura, além de um protótipo navegável de alta fidelidade das interfaces de condutor e prestador.}
 
 \vspace{6pt}
 {\sloppy \noindent \textbf{Palavras-chave:} socorro mecânico; geolocalização; mobilidade urbana; logística portuária; sistemas móveis.\par}
@@ -195,6 +199,7 @@ Para a viabilização do sistema, selecionou-se um conjunto de tecnologias que b
 \begin{table}[H]
 \centering
 \caption{Materiais e Tecnologias do HelpMechanic.}
+\label{tab:materiais}
 \begin{tabularx}{\textwidth}{|l|l|Y|}
 \hline
 \textbf{Camada} & \textbf{Tecnologia} & \textbf{Justificativa Acadêmica} \\ \hline
@@ -215,17 +220,20 @@ A lógica central de conexão do HelpMechanic apoia-se em um modelo de gestão a
 O fluxo lógico do pareamento é estruturado em cinco etapas: validação do status do condutor; classificação preliminar do chamado; filtragem de prestadores ativos e compatíveis com o tipo de veículo; verificação do raio de atuação por consulta espacial; e ordenação dos prestadores elegíveis pela menor distância em relação ao chamado. Na implementação, a ordenação poderá considerar consultas espaciais no PostgreSQL com extensão PostGIS, permitindo filtrar profissionais dentro do raio de atuação e ordenar os resultados pela proximidade da posição do condutor \cite{postgis_sd}.
 
 \section{Resultados e Discussão}
-Nesta etapa, os resultados concentram-se na especificação do sistema HelpMechanic. Foram definidos o conjunto tecnológico, as regras de negócio, os requisitos funcionais e os requisitos não funcionais necessários para estruturar a plataforma de intermediação de socorro mecânico. Esses artefatos permitem compreender os atores envolvidos, as responsabilidades do sistema e os critérios mínimos para disponibilizar uma solução voltada à mobilidade urbana e ao contexto logístico de Paranaguá.
+Nesta etapa, os resultados concentram-se na especificação do sistema HelpMechanic. Foram definidos o conjunto tecnológico, as regras de negócio, os requisitos funcionais e os requisitos não funcionais necessários para estruturar a plataforma de intermediação de socorro mecânico, além dos artefatos de modelagem e do protótipo navegável de alta fidelidade que materializa as interfaces de condutor e prestador. Esses artefatos permitem compreender os atores envolvidos, as responsabilidades do sistema e os critérios mínimos para disponibilizar uma solução voltada à mobilidade urbana e ao contexto logístico de Paranaguá.
 
 A análise também evidencia limitações do estágio atual do projeto, especialmente a necessidade de validação prática do algoritmo de pareamento, avaliação da triagem assistida por IA com usuários reais e medição de desempenho em cenários de baixa conectividade. Assim, os resultados apresentados devem ser compreendidos como uma etapa de especificação e prototipação, não como validação conclusiva em ambiente operacional.
 
 \subsection{Regras de Negócio}
 
+A Tabela~\ref{tab:regras-negocio} consolida as regras de negócio que delimitam o comportamento esperado da plataforma, definindo as responsabilidades de condutores, prestadores, administradores e do próprio sistema em pontos críticos do fluxo, como cadastro, validação de identidade, pareamento, pagamento, avaliação e retenção de dados.
+
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.075\textwidth}|>{\raggedright\arraybackslash}p{0.18\textwidth}|>{\raggedright\arraybackslash}p{0.455\textwidth}|>{\raggedright\arraybackslash}p{0.16\textwidth}|}
-\caption{Regras de Negócio do Sistema.} \\
+\caption{Regras de Negócio do Sistema.}
+\label{tab:regras-negocio} \\
 \hline
 \textbf{ID} & \textbf{Nome da Regra} & \textbf{Descrição} & \textbf{Atores} \\ \hline
 \endfirsthead
@@ -253,11 +261,14 @@ RN016 & Controle de Acesso por Perfil & O acesso às funcionalidades do sistema 
 
 \subsection{Requisitos Funcionais}
 
+Os requisitos funcionais derivados das regras de negócio são apresentados na Tabela~\ref{tab:rf}, que descreve as funcionalidades que o sistema deve oferecer aos diferentes perfis de usuário e indica, na última coluna, as regras de negócio associadas a cada requisito, garantindo a rastreabilidade entre os dois artefatos.
+
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.075\textwidth}|>{\raggedright\arraybackslash}p{0.20\textwidth}|>{\raggedright\arraybackslash}p{0.465\textwidth}|>{\raggedright\arraybackslash}p{0.15\textwidth}|}
-\caption{Requisitos Funcionais (RF).} \\
+\caption{Requisitos Funcionais (RF).}
+\label{tab:rf} \\
 \hline
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} & \textbf{RN Assoc.} \\ \hline
 \endfirsthead
@@ -290,13 +301,14 @@ RF021 & Consultar Serviço Externo de IA & O sistema deve permitir a integraçã
 
 \subsection{Requisitos Não Funcionais}
 
-A definição dos requisitos não funcionais também considera atributos de qualidade de produto de software associados a desempenho, usabilidade, segurança, confiabilidade e manutenibilidade, conforme modelos de avaliação como a ISO/IEC 25010 \cite{iso25010_2023}.
+A definição dos requisitos não funcionais também considera atributos de qualidade de produto de software associados a desempenho, usabilidade, segurança, confiabilidade e manutenibilidade, conforme modelos de avaliação como a ISO/IEC 25010 \cite{iso25010_2023}. A Tabela~\ref{tab:rnf} apresenta os requisitos não funcionais especificados para a plataforma.
 
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
 \begin{longtable}{|>{\raggedright\arraybackslash}p{0.08\textwidth}|>{\raggedright\arraybackslash}p{0.25\textwidth}|>{\raggedright\arraybackslash}p{0.60\textwidth}|}
-\caption{Requisitos Não Funcionais (RNF).} \\
+\caption{Requisitos Não Funcionais (RNF).}
+\label{tab:rnf} \\
 \hline
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} \\ \hline
 \endfirsthead
@@ -304,7 +316,7 @@ A definição dos requisitos não funcionais também considera atributos de qual
 \textbf{ID} & \textbf{Nome do Requisito} & \textbf{Descrição} \\ \hline
 \endhead
 RNF001 & Segurança e Autenticação & O sistema deve garantir autenticação de usuários, autorização por perfil, gerenciamento seguro de sessão, proteção de rotas e encerramento de sessão em caso de inatividade ou ação explícita do usuário. \\ \hline
-RNF002 & Desempenho & As funcionalidades críticas de abertura de chamado, triagem preliminar e pareamento de prestadores devem ser projetadas para apresentar resposta rápida, com meta de retorno em até 3 segundos em condições normais de rede e carga. \\ \hline
+RNF002 & Desempenho & As funcionalidades críticas de abertura de chamado e pareamento de prestadores devem ser projetadas para apresentar resposta em até 3 segundos em condições normais de rede e carga. A triagem preliminar assistida por IA, por depender de serviço externo, deve fornecer retorno parcial ou indicador de progresso ao condutor enquanto a resposta completa é processada. \\ \hline
 RNF003 & Consistência e Integridade de Dados & As interfaces entre aplicativo, backend e banco de dados devem validar entradas e saídas, manter contratos de dados consistentes e prevenir estados inválidos, erros de serialização ou inconsistências entre as camadas do sistema. \\ \hline
 RNF004 & Proteção de Dados (LGPD) & O sistema deve minimizar ou anonimizar dados de geolocalização após a conclusão do serviço, respeitando prazos necessários para auditoria, segurança, obrigações legais e suporte ao usuário. \\ \hline
 RNF005 & Suporte a Dados Geoespaciais & A camada de persistência deve permitir armazenamento de coordenadas, indexação espacial e consultas por raio de atuação para cálculo de proximidade entre condutor e prestadores disponíveis. \\ \hline
@@ -316,7 +328,7 @@ RNF010 & Controle de Acesso Administrativo & Apenas usuários administrativos au
 RNF011 & Retenção e Exclusão & Imagens de documentos e selfies devem ser excluídas ou anonimizadas após a finalidade de validação ser cumprida, salvo necessidade legal, antifraude ou de auditoria. \\ \hline
 RNF012 & Transparência ao Usuário & O aplicativo deve informar de forma clara a finalidade da coleta de documentos, localização e dados de contato, bem como as condições de retenção e exclusão. \\ \hline
 RNF013 & Usabilidade & O aplicativo deve apresentar fluxo de solicitação de socorro simples e objetivo, permitindo que o condutor inicie um chamado em poucas etapas após a autenticação, com linguagem clara, feedback visual de status e mensagens de erro compreensíveis. \\ \hline
-RNF014 & Disponibilidade & Em ambiente de produção, os serviços essenciais de autenticação, abertura de chamado, pareamento, comunicação e pagamento devem manter disponibilidade mínima de 90\% ao mês, excetuadas janelas de manutenção planejada. \\ \hline
+RNF014 & Disponibilidade & Em ambiente de produção, os serviços essenciais de autenticação, abertura de chamado, pareamento, comunicação e pagamento devem manter disponibilidade mínima de 99\% ao mês, admitindo-se meta transitória de 95\% durante a fase inicial de validação do produto (MVP), excetuadas janelas de manutenção planejada. \\ \hline
 RNF015 & Controle de Dados Enviados à IA & O sistema deve limitar o envio de dados ao serviço externo de IA às informações estritamente necessárias para a triagem preliminar, evitando o compartilhamento de CPF, documentos, selfies ou outros dados sensíveis não relacionados ao problema mecânico relatado. \\ \hline
 \end{longtable}
 }
@@ -329,35 +341,114 @@ Além disso, a triagem preliminar assistida por inteligência artificial busca o
 Os requisitos de privacidade reforçam que a geolocalização e os documentos de identidade são necessários apenas para finalidades específicas de segurança, atendimento e auditoria. Por fim, a eficácia geral dos mecanismos propostos, incluindo o comportamento do cache local em zonas de sombra e o tempo real de pareamento, depende de testes práticos e validação em ambiente real, especialmente no complexo urbano e portuário de Paranaguá, onde o fluxo constante de veículos pesados impõe desafios de conectividade e mobilidade.
 
 \subsection{Diagramas de Caso de Uso}
+
+A Figura~\ref{fig:casos-uso} apresenta o diagrama de casos de uso do HelpMechanic, consolidando as principais funcionalidades especificadas nos requisitos funcionais. O condutor concentra os casos de uso de manutenção de perfil e veículo, solicitação de socorro --- que inclui a triagem preliminar via IA e o pareamento por localização ---, pagamento, cancelamento da solicitação e avaliação do prestador. O prestador de serviço, por sua vez, mantém especialidades, área de atuação e disponibilidade, visualiza solicitações compatíveis, aceita ou recusa atendimentos e registra a conclusão do serviço. Os atores externos representam as integrações previstas na arquitetura: o provedor externo de pagamento, o serviço externo de validação de identidade e o administrador, responsável pela revisão de documentos e selfies nos casos que exigem análise manual.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1.0\linewidth]{Diagrama UML HelpMechanic.png}
-    \caption{Diagrama de casos de uso Representando as principais funcionalidades.}
+    \caption{Diagrama de casos de uso representando as principais funcionalidades.}
+    \label{fig:casos-uso}
 \end{figure}
 
 \subsection{Fluxograma}
+
+O fluxo completo de atendimento é detalhado na Figura~\ref{fig:fluxobpmn}, organizada em quatro raias: condutor, aplicativo/sistema, serviço externo/administrador e prestador. O processo inicia com a verificação de cadastro e sessão válida e passa pela validação de identidade do condutor, com a análise documental realizada por serviço externo ou pelo administrador. Aprovada a identidade, a solicitação de socorro segue para a triagem preliminar assistida por IA, a classificação do chamado (mecânico, borracharia ou guincho) e as etapas de filtragem, verificação de compatibilidade e ordenação dos prestadores elegíveis por menor distância. O fluxograma contempla ainda os caminhos alternativos de indisponibilidade de prestador, cancelamento pelo condutor após o aceite, falha no pagamento e encerramento sem conclusão, com os respectivos registros mantidos para fins de auditoria.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\linewidth]{_Fluxograma TCC helpmechanic.png}
-    \caption{Fluxo de solicitação, triagem, pareamento e conclusão do atendimento no HelpMechanic.}
-    \label{fig:fluxograma-atendimento}
+    \includesvg[height=0.82\textheight, inkscapelatex=false]{diagramaBPMN}
+    \caption[Fluxo de solicitação, triagem, pareamento e conclusão do atendimento no HelpMechanic]{Fluxo de solicitação, triagem, pareamento e conclusão do atendimento no HelpMechanic.}
+    \label{fig:fluxobpmn}
+    \vspace{0.5em}
+    {\footnotesize\textit{Nota: Esta é uma imagem vetorial. Recomenda-se utilizar a ferramenta de zoom do leitor de PDF para melhor visualização dos detalhes.}}
 \end{figure}
 
+
 \subsection{Modelo Relacional}
-em desenvolvimento
+
+A Figura~\ref{fig:der} apresenta o Diagrama Entidade-Relacionamento (DER) do banco de dados, que materializa as regras de negócio na camada de persistência. O modelo organiza-se em torno dos usuários e de seus perfis (condutor e prestador), das solicitações de socorro e das estruturas de apoio ao atendimento, contemplando entidades para veículos, especialidades, disponibilidade horária, credenciais do prestador e validação de identidade do condutor, além de mensagens, triagem realizada por IA, pagamentos e avaliações. Os registros de auditoria atendem diretamente aos requisitos de rastreabilidade e de proteção de dados estabelecidos nas regras RN012 e nos requisitos não funcionais RNF009 a RNF011.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\linewidth]{Banco de dados.png}
+    \caption{Diagrama Entidade-Relacionamento (DER) do banco de dados.}
+    \label{fig:der}
+\end{figure}
 
 \subsection{Principais Telas do Sistema}
-em desenvolvimento
+
+As Figuras~\ref{fig:telas-condutor} e~\ref{fig:telas-prestador} apresentam as principais telas do protótipo navegável de alta fidelidade, nas perspectivas do condutor e do prestador de serviço. Na visão do condutor, a tela inicial (Figura~\ref{fig:condutor1}) concentra os atalhos de ajuda rápida, o acesso à triagem inteligente assistida por IA e a confirmação da localização atual; a tela de acompanhamento (Figura~\ref{fig:condutor2}) exibe o prestador pareado, a distância, o tempo estimado de chegada e os canais internos de contato; e a tela de perfil (Figura~\ref{fig:condutor3}) reúne os veículos cadastrados, o status de validação de identidade e as opções de privacidade e dados previstas pela LGPD.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Condutor1.png}
+        \caption{Inicio/home}
+        \label{fig:condutor1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Condutor2.png}
+        \caption{Esperando Prestador}
+        \label{fig:condutor2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Condutor3.png}
+        \caption{Perfil}
+        \label{fig:condutor3}
+    \end{subfigure}
+    \caption{Telas do aplicativo na perspectiva do condutor.}
+    \label{fig:telas-condutor}
+\end{figure}
+
+Na visão do prestador, destacam-se o recebimento do chamado com o pré-diagnóstico gerado pela triagem de IA e os dados essenciais do atendimento (Figura~\ref{fig:prestador1}), a navegação até a localização do condutor (Figura~\ref{fig:prestador2}) e o perfil profissional, com especialidades atendidas, raio de atendimento, documentos submetidos e dados bancários (Figura~\ref{fig:prestador3}).
+
+\begin{figure}[!ht]
+    \centering
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Prestador1.png}
+        \caption{Recebimento do chamado}
+        \label{fig:prestador1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Prestador2.png}
+        \caption{Navegação/Indo até condutor}
+        \label{fig:prestador2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.30\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{Prestador3.png}
+        \caption{Perfil}
+        \label{fig:prestador3}
+    \end{subfigure}
+    \caption{Telas do aplicativo na perspectiva do prestador de serviço.}
+    \label{fig:telas-prestador}
+\end{figure}
+
+\FloatBarrier
+
+\noindent{\footnotesize\textit{Nota: As telas acima fazem parte do protótipo navegável de alta fidelidade, disponível em \url{https://prototipohelpmech.vercel.app/}.}}
 
 \section{Conclusões}
-Este trabalho apresentou a especificação inicial do HelpMechanic, uma plataforma móvel voltada à intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta demonstrou-se relevante diante do contexto urbano e logístico local, marcado pela circulação intensa de veículos leves e pesados e pela necessidade de respostas rápidas em situações de falha veicular. Como contribuição, foram definidos requisitos funcionais, requisitos não funcionais, regras de negócio, critérios de privacidade e elementos iniciais de arquitetura, contemplando geolocalização, triagem assistida por IA, validação de identidade e pareamento por proximidade e especialidade técnica.
+Este trabalho apresentou a especificação inicial do HelpMechanic, uma plataforma móvel voltada à intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta demonstrou-se relevante diante do contexto urbano e logístico local, marcado pela circulação intensa de veículos leves e pesados e pela necessidade de respostas rápidas em situações de falha veicular. Como contribuição, foram definidos requisitos funcionais, requisitos não funcionais, regras de negócio, critérios de privacidade e elementos iniciais de arquitetura, contemplando geolocalização, triagem assistida por IA, validação de identidade e pareamento por proximidade e especialidade técnica. A especificação foi materializada em um protótipo navegável de alta fidelidade, publicamente disponível, que apresenta as interfaces de condutor e prestador e simula o fluxo completo de atendimento.
+
+Quanto aos objetivos específicos, considera-se que todos foram contemplados no escopo proposto: (a) os principais gargalos do acionamento de socorro no contexto urbano e portuário foram identificados por meio da análise documental e da caracterização da lacuna operacional descrita na introdução; (b) a lógica de pareamento por proximidade, disponibilidade e especialidade técnica foi definida nas regras RN003, RN005 e RN006 e no requisito RF004; (c) o fluxo de triagem preliminar assistida por IA foi especificado em RN013, RF003 e RF021; (d) os requisitos de segurança, validação de identidade e proteção de dados foram estabelecidos nas regras RN008 a RN012 e nos requisitos não funcionais RNF001 e RNF007 a RNF012; (e) os artefatos de modelagem --- regras de negócio, requisitos, casos de uso, fluxograma e modelo relacional --- foram apresentados na seção de resultados; e (f) o protótipo navegável de alta fidelidade foi construído e disponibilizado, restando a implementação completa do sistema como trabalho futuro.
 
 Apesar disso, o trabalho ainda se encontra em estágio de especificação e prototipação, não permitindo afirmar de forma conclusiva a redução do tempo de imobilização veicular. Assim, testes de usabilidade com usuários reais, validação do algoritmo de pareamento, avaliação da triagem assistida por IA, integração com serviços externos de validação e medições de desempenho em cenários de baixa conectividade ainda serão realizados em trabalhos futuros.
 
 \subsection{Trabalhos Futuros}
-Como trabalhos futuros, ainda serão realizados os seguintes encaminhamentos: implementação completa do protótipo funcional, validação do algoritmo de pareamento com dados reais, testes de usabilidade com condutores e prestadores, integração com serviços externos de validação de identidade, aprofundamento da integração com serviço externo de IA e avaliação do desempenho da aplicação em cenários de baixa conectividade. Também se recomenda aprofundar os mecanismos de privacidade, auditoria e retenção de dados, considerando os requisitos da LGPD \cite{brasil_lgpd2018} e a segurança dos participantes da plataforma.
+Como trabalhos futuros, ainda serão realizados os seguintes encaminhamentos: implementação completa do sistema a partir do protótipo navegável, incluindo backend, persistência e integrações externas; validação do algoritmo de pareamento com dados reais; testes de usabilidade com condutores e prestadores; integração com serviços externos de validação de identidade; aprofundamento da integração com serviço externo de IA; e avaliação do desempenho da aplicação em cenários de baixa conectividade. Também se recomenda aprofundar os mecanismos de privacidade, auditoria e retenção de dados, considerando os requisitos da LGPD \cite{brasil_lgpd2018} e a segurança dos participantes da plataforma.
 
 \bibliographystyle{sbc}
-\bibliography{references,references_adicionais}
+\bibliography{references}
 
 \end{document}
