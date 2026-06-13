@@ -144,7 +144,7 @@ Esses objetivos específicos detalham as etapas necessárias para desenvolver e 
     \item[c)] especificar um fluxo de triagem preliminar assistida por inteligência artificial para auxiliar a descrição do problema pelo condutor;
     \item[d)] estabelecer requisitos de segurança, validação de identidade, minimização de dados e proteção de informações pessoais;
     \item[e)] modelar os principais requisitos funcionais, requisitos não funcionais, regras de negócio e artefatos conceituais da plataforma;
-    \item[f)] desenvolver um protótipo funcional do aplicativo móvel e suas respectivas interfaces (condutor e prestador), integrando a lógica de pareamento geográfico, o fluxo de triagem por IA e os protocolos de segurança previamente definidos.
+    \item[f)] desenvolver um protótipo navegável de alta fidelidade do aplicativo móvel, contemplando as interfaces de condutor e prestador e simulando o fluxo de solicitação, triagem preliminar por IA e pareamento geográfico especificados, como base para a futura implementação completa do sistema.
 \end{itemize}
 
 \subsection{Justificativa}
@@ -194,7 +194,7 @@ O trabalho adota prototipação incremental como procedimento técnico, iniciand
 A etapa atual limita-se à especificação e à prototipação conceitual. Desse modo, não são apresentados testes conclusivos de redução do tempo de imobilização, validação estatística de desempenho ou avaliação de usabilidade com usuários reais. Essas validações são indicadas como etapas futuras, necessárias para verificar a efetividade do sistema em condições reais de conectividade, fluxo viário e disponibilidade de prestadores.
 
 \subsection{Materiais}
-Para a viabilização do sistema, selecionou-se um conjunto de tecnologias que busca apoiar desempenho, segurança de tipos e organização do desenvolvimento, embora a comprovação desses benefícios dependa de testes futuros de carga, latência e uso em ambiente real. Na camada de apresentação, o TanStack Router gerencia rotas com tipagem estática e APIs orientadas a TypeScript \cite{tanstackrouter_sd}. Para a estilização móvel, o NativeWind permite utilizar o fluxo de trabalho do Tailwind CSS em aplicações React Native, contribuindo para consistência visual e produtividade na construção da interface \cite{nativewind_sd}. A Tabela 1 detalha os recursos utilizados e as respectivas justificativas para a arquitetura do HelpMechanic.
+Para a viabilização do sistema, selecionou-se um conjunto de tecnologias que busca apoiar desempenho, segurança de tipos e organização do desenvolvimento, embora a comprovação desses benefícios dependa de testes futuros de carga, latência e uso em ambiente real. Na camada de apresentação, o TanStack Router gerencia rotas com tipagem estática e APIs orientadas a TypeScript \cite{tanstackrouter_sd}. Para a estilização móvel, o NativeWind permite utilizar o fluxo de trabalho do Tailwind CSS em aplicações React Native, contribuindo para consistência visual e produtividade na construção da interface \cite{nativewind_sd}. A Tabela~\ref{tab:materiais} detalha os recursos utilizados e as respectivas justificativas para a arquitetura do HelpMechanic.
 
 \begin{table}[H]
 \centering
@@ -385,28 +385,28 @@ As Figuras~\ref{fig:telas-condutor} e~\ref{fig:telas-prestador} apresentam as pr
     \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Condutor1.png}
-        \caption{Inicio/home}
+        \caption{Início e solicitação de ajuda}
         \label{fig:condutor1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Condutor2.png}
-        \caption{Esperando Prestador}
+        \caption{Acompanhamento do atendimento}
         \label{fig:condutor2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Condutor3.png}
-        \caption{Perfil}
+        \caption{Perfil do condutor}
         \label{fig:condutor3}
     \end{subfigure}
     \caption{Telas do aplicativo na perspectiva do condutor.}
     \label{fig:telas-condutor}
 \end{figure}
 
-Na visão do prestador, destacam-se o recebimento do chamado com o pré-diagnóstico gerado pela triagem de IA e os dados essenciais do atendimento (Figura~\ref{fig:prestador1}), a navegação até a localização do condutor (Figura~\ref{fig:prestador2}) e o perfil profissional, com especialidades atendidas, raio de atendimento, documentos submetidos e dados bancários (Figura~\ref{fig:prestador3}).
+Na visão do prestador, as telas destacam o recebimento do chamado com pré-diagnóstico de IA e dados essenciais do atendimento (Figura~\ref{fig:prestador1}), a navegação até a localização do condutor (Figura~\ref{fig:prestador2}) e o perfil profissional, com especialidades, raio de atendimento, documentos submetidos e dados bancários (Figura~\ref{fig:prestador3}).
 
 \begin{figure}[!ht]
     \centering
@@ -420,14 +420,14 @@ Na visão do prestador, destacam-se o recebimento do chamado com o pré-diagnós
     \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Prestador2.png}
-        \caption{Navegação/Indo até condutor}
+        \caption{Navegação até o condutor}
         \label{fig:prestador2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\linewidth]{Prestador3.png}
-        \caption{Perfil}
+        \caption{Perfil do prestador}
         \label{fig:prestador3}
     \end{subfigure}
     \caption{Telas do aplicativo na perspectiva do prestador de serviço.}
@@ -436,12 +436,13 @@ Na visão do prestador, destacam-se o recebimento do chamado com o pré-diagnós
 
 \FloatBarrier
 
-\noindent{\footnotesize\textit{Nota: As telas acima fazem parte do protótipo navegável de alta fidelidade, disponível em \url{https://prototipohelpmech.vercel.app/}.}}
+\noindent{\footnotesize\textit{Nota: As telas acima fazem parte do protótipo navegável de alta fidelidade, disponível em}\\
+\href{https://prototipohelpmech.vercel.app/}{\texttt{prototipohelpmech.vercel.app}}.}
 
 \section{Conclusões}
-Este trabalho apresentou a especificação inicial do HelpMechanic, uma plataforma móvel voltada à intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta demonstrou-se relevante diante do contexto urbano e logístico local, marcado pela circulação intensa de veículos leves e pesados e pela necessidade de respostas rápidas em situações de falha veicular. Como contribuição, foram definidos requisitos funcionais, requisitos não funcionais, regras de negócio, critérios de privacidade e elementos iniciais de arquitetura, contemplando geolocalização, triagem assistida por IA, validação de identidade e pareamento por proximidade e especialidade técnica. A especificação foi materializada em um protótipo navegável de alta fidelidade, publicamente disponível, que apresenta as interfaces de condutor e prestador e simula o fluxo completo de atendimento.
+Este trabalho apresentou a especificação e a prototipação inicial do HelpMechanic, uma plataforma móvel voltada à intermediação de serviços de socorro mecânico e borracharia em Paranaguá-PR. A proposta mostrou-se pertinente diante do contexto urbano e logístico local, marcado pela circulação intensa de veículos leves e pesados e pela necessidade de respostas rápidas em situações de falha veicular. Como contribuição, foram definidos requisitos funcionais, requisitos não funcionais, regras de negócio, critérios de privacidade e elementos iniciais de arquitetura, contemplando geolocalização, triagem assistida por IA, validação de identidade e pareamento por proximidade e especialidade técnica. A especificação foi representada em um protótipo navegável de alta fidelidade, publicamente disponível, que apresenta as interfaces de condutor e prestador e simula o fluxo completo de atendimento.
 
-Quanto aos objetivos específicos, considera-se que todos foram contemplados no escopo proposto: (a) os principais gargalos do acionamento de socorro no contexto urbano e portuário foram identificados por meio da análise documental e da caracterização da lacuna operacional descrita na introdução; (b) a lógica de pareamento por proximidade, disponibilidade e especialidade técnica foi definida nas regras RN003, RN005 e RN006 e no requisito RF004; (c) o fluxo de triagem preliminar assistida por IA foi especificado em RN013, RF003 e RF021; (d) os requisitos de segurança, validação de identidade e proteção de dados foram estabelecidos nas regras RN008 a RN012 e nos requisitos não funcionais RNF001 e RNF007 a RNF012; (e) os artefatos de modelagem --- regras de negócio, requisitos, casos de uso, fluxograma e modelo relacional --- foram apresentados na seção de resultados; e (f) o protótipo navegável de alta fidelidade foi construído e disponibilizado, restando a implementação completa do sistema como trabalho futuro.
+Quanto aos objetivos específicos, considera-se que eles foram atendidos dentro do escopo de especificação e prototipação definido para este trabalho: (a) os principais gargalos do acionamento de socorro no contexto urbano e portuário foram identificados por meio da análise documental e da caracterização da lacuna operacional descrita na introdução; (b) a lógica de pareamento por proximidade, disponibilidade e especialidade técnica foi definida nas regras RN003, RN005 e RN006 e no requisito RF004; (c) o fluxo de triagem preliminar assistida por IA foi especificado em RN013, RF003 e RF021; (d) os requisitos de segurança, validação de identidade e proteção de dados foram estabelecidos nas regras RN008 a RN012 e nos requisitos não funcionais RNF001 e RNF007 a RNF012; (e) os artefatos de modelagem --- regras de negócio, requisitos, casos de uso, fluxograma e modelo relacional --- foram apresentados na seção de resultados; e (f) o protótipo navegável de alta fidelidade foi construído e disponibilizado, restando a implementação completa do sistema como trabalho futuro.
 
 Apesar disso, o trabalho ainda se encontra em estágio de especificação e prototipação, não permitindo afirmar de forma conclusiva a redução do tempo de imobilização veicular. Assim, testes de usabilidade com usuários reais, validação do algoritmo de pareamento, avaliação da triagem assistida por IA, integração com serviços externos de validação e medições de desempenho em cenários de baixa conectividade ainda serão realizados em trabalhos futuros.
 
